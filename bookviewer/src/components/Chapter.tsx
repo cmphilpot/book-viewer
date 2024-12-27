@@ -25,22 +25,22 @@ const Chapter = ({chapters}: ChapterProps ): JSX.Element => {
   }
 
   useEffect(() => {
-
-    fetchChapterData(name)
+    if (name) {
+      fetchChapterData(name)
       .then(textData => {
         setText(textData)
       })
+    }
 
     const currentChapterTitle = standardizeTitle(name)
     setChapterTitle(currentChapterTitle)
-
-  }, [name, chapters])
+  }, [name])
 
   return (
     <>
       <HomeButton />
       <h2>{chapterTitle}</h2>
-      {text.split('\n\n').map((paragraph) => <p>{paragraph}</p> )}
+      {text.split('\n\n').map((paragraph, index) => <p key={index}>{paragraph}</p> )}
     </>
   )
 }
